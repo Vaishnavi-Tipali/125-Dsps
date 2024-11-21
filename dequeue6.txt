@@ -1,0 +1,169 @@
+#include<iostream>
+#define SIZE 15 
+using namespace std;
+
+class Deque
+{
+    public:
+    int a[SIZE], front, rear;  // Set array size to SIZE instead of 10
+    
+    Deque()
+    {
+        front = -1;
+        rear = -1;
+    }
+    
+    void add_at_end(int item)  // Add item at rear
+    {
+        if (rear >= SIZE - 1)  // Check if rear has reached the end
+        {
+            cout << "\n Insertion is not possible, overflow!!!";
+        }
+        else
+        {
+            if (front == -1)  // If deque is initially empty
+            {
+                front = rear = 0;
+            }
+            else
+            {
+                rear++;
+            }
+            a[rear] = item;
+            cout << "\n Inserted item at rear: " << a[rear];
+        }
+    }
+    
+    void add_at_beg(int item)  // Add item at front
+    {
+        if (front == 0)  // Check for overflow at front
+        {
+            cout << "\n Insertion at the beginning is not possible, overflow!!!";
+        }
+        else if (front == -1)  // If deque is empty
+        {
+            front = rear = 0;
+            a[front] = item;
+            cout << "\n Inserted item at front: " << a[front];
+        }
+        else
+        {
+            front--;  // Decrement front and insert item
+            a[front] = item;
+            cout << "\n Inserted item at front: " << a[front];
+        }
+    }
+    
+    void display()  // Display deque elements
+    {
+        if (front == -1)  // If deque is empty
+        {
+            cout << "\n Deque is empty";
+        }
+        else
+        {
+            cout << "\n Elements in Deque are: ";
+            for (int i = front; i <= rear; i++)  // Display all elements from front to rear
+            {
+                cout << a[i] << " ";
+            }
+        }
+    }
+    
+    void delete_fr_front()  // Delete item from front
+    {
+        if (front == -1)  // If deque is empty
+        {
+            cout << "\n Deletion is not possible, Deque is empty";
+        }
+        else
+        {
+            cout << "\n The deleted element from front is: " << a[front];
+            if (front == rear)  // If there's only one element
+            {
+                front = rear = -1;  // Reset deque to empty state
+            }
+            else
+            {
+                front++;
+            }
+        }
+    }
+    
+    void delete_fr_rear()  // Delete item from rear
+    {
+        if (front == -1)  // If deque is empty
+        {
+            cout << "\n Deletion is not possible, Deque is empty";
+        }
+        else
+        {
+            cout << "\n The deleted element from rear is: " << a[rear];
+            if (front == rear)  // If there's only one element
+            {
+                front = rear = -1;  // Reset deque to empty state
+            }
+            else
+            {
+                rear--;
+            }
+        }
+    }
+};
+
+int main()
+{
+    int c, item;
+    Deque d1;
+    
+    do
+    {
+        // Menu
+        cout << "\n\nDeque OPERATION\n";
+        cout << "1] Insert at beginning\n";
+        cout << "2] Insert at end\n";
+        cout << "3] Display\n";
+        cout << "4] Deletion from front\n";
+        cout << "5] Deletion from rear\n";
+        cout << "6] Exit\n";
+        cout << "Enter your choice: ";
+        cin >> c;
+        
+        switch(c)
+        {
+            case 1:
+                cout << "Enter the element to be inserted: ";
+                cin >> item;
+                d1.add_at_beg(item);
+                break;
+                
+            case 2:
+                cout << "Enter the element to be inserted: ";
+                cin >> item;
+                d1.add_at_end(item);
+                break;
+                
+            case 3:
+                d1.display();
+                break;
+                
+            case 4:
+                d1.delete_fr_front();
+                break;
+                
+            case 5:
+                d1.delete_fr_rear();
+                break;
+                
+            case 6:
+                cout << "Exiting...";
+                break;
+                
+            default:
+                cout << "Invalid choice";
+                break;
+        }
+    } while(c > 0 && c < 6);
+    
+    return 0;
+}
